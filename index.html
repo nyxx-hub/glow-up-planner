@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Glow Up Planner</title>
+    <title>Glow Up Planner - Month 1</title>
     <style>
-        /* Minimalist & Clean Aesthetics (Soft Warm Rose/Nude Theme) */
+        /* Minimalist & Aesthetic Nude Theme */
         body {
             font-family: 'Helvetica Neue', Arial, sans-serif;
             background-color: #fdf6f0;
@@ -16,68 +16,110 @@
             justify-content: center;
         }
         .container {
-            max-width: 600px;
+            max-width: 800px;
             width: 100%;
             background: #ffffff;
-            padding: 25px;
-            border-radius: 16px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
         }
         h1 {
             text-align: center;
             font-family: 'Georgia', serif;
             color: #d4a373;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
             margin-bottom: 5px;
+            font-size: 2.2rem;
         }
         .subtitle {
             text-align: center;
             font-size: 0.9rem;
             color: #a3b18a;
-            margin-bottom: 30px;
+            margin-bottom: 35px;
             text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .grid-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+        @media (max-width: 768px) {
+            .grid-layout { grid-template-columns: 1fr; }
         }
         .section {
+            background: #fffcf9;
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid #f4eae1;
             margin-bottom: 25px;
-            padding-bottom: 20px;
-            border-bottom: 1px dashed #e9ecef;
         }
-        h2 {
+        .section-title {
             font-size: 1.1rem;
             color: #b58282;
+            margin-top: 0;
             margin-bottom: 15px;
+            border-bottom: 1px dashed #e9ecef;
+            padding-bottom: 5px;
+            font-family: 'Georgia', serif;
         }
-        /* Checklist Styling */
+        /* Checklist Style */
         .checklist-item {
             display: flex;
             align-items: center;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             font-size: 0.95rem;
         }
         .checklist-item input[type="checkbox"] {
             margin-right: 12px;
             width: 18px;
             height: 18px;
-            accent-color: #e0a96d;
+            accent-color: #d4a373;
             cursor: pointer;
         }
-        /* Body Measurements Styling */
+        /* Table Style */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #f4eae1;
+        }
+        th { color: #b58282; font-weight: 600; }
+        /* Input & Form Style */
         .input-group {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 10px;
-        }
-        .input-group label {
+            margin-bottom: 12px;
             font-size: 0.95rem;
         }
-        .input-group input {
-            width: 80px;
-            padding: 5px;
-            border: 1px solid #ddd;
+        .input-group input, textarea {
+            border: 1px solid #e4d5c7;
             border-radius: 6px;
-            text-align: center;
+            padding: 6px;
+            background: #fff;
+            color: #4a3e3d;
         }
+        input[type="number"] { width: 70px; text-align: center; }
+        textarea { width: 100%; height: 60px; resize: none; font-family: inherit; }
+        /* Water Tracker */
+        .water-container {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+        .water-glass {
+            font-size: 1.5rem;
+            cursor: pointer;
+            opacity: 0.3;
+            transition: opacity 0.2s;
+        }
+        .water-glass.active { opacity: 1; }
     </style>
 </head>
 <body>
@@ -86,92 +128,156 @@
     <h1>GLOW UP PLANNER</h1>
     <div class="subtitle">Month 1 • Day 1 - 30</div>
 
-    <!-- SECTION 1: DAILY CHECKLIST -->
-    <div class="section">
-        <h2>Daily Checklist</h2>
-        <div class="checklist-item">
-            <input type="checkbox" id="water" onchange="saveData()">
-            <label for="water">💧 Drink 2.5 - 3L of water</label>
+    <!-- UPPER BOXES -->
+    <div class="grid-layout">
+        <!-- Monthly Focus -->
+        <div class="section">
+            <div class="section-title">Target & Focus</div>
+            <div class="checklist-item"><input type="checkbox" id="g1" onchange="saveData()"><label for="g1">Target weight: 68 kg → 66-67 kg</label></div>
+            <div class="checklist-item"><input type="checkbox" id="g2" onchange="saveData()"><label for="g2">Build a consistent workout habit</label></div>
+            <div class="checklist-item"><input type="checkbox" id="g3" onchange="saveData()"><label for="g3">Increase physical stamina</label></div>
+            <div class="checklist-item"><input type="checkbox" id="g4" onchange="saveData()"><label for="g4">Drink adequate water daily</label></div>
         </div>
-        <div class="checklist-item">
-            <input type="checkbox" id="protein" onchange="saveData()">
-            <label for="protein">🥩 Eat 80-100g of protein</label>
-        </div>
-        <div class="checklist-item">
-            <input type="checkbox" id="workout" onchange="saveData()">
-            <label for="workout">🏋️ Scheduled workout complete</label>
-        </div>
-        <div class="checklist-item">
-            <input type="checkbox" id="steps" onchange="saveData()">
-            <label for="steps">👟 8,000 - 10,000 steps</label>
-        </div>
-        <div class="checklist-item">
-            <input type="checkbox" id="skincare" onchange="saveData()">
-            <label for="skincare">✨ Morning & Night skincare</label>
-        </div>
-        <div class="checklist-item">
-            <input type="checkbox" id="sleep" onchange="saveData()">
-            <label for="sleep">💤 Sleep 7.5 - 9 hours</label>
+        
+        <!-- Reminders -->
+        <div class="section" style="background: #faf4ee; display: flex; flex-direction: column; justify-content: center; text-align: center;">
+            <p style="font-style: italic; font-size: 1.05rem; color: #b58282; margin: 0 0 10px 0;">"Today's discipline is tomorrow's result."</p>
+            <p style="font-size: 0.85rem; color: #a3b18a; margin: 0; letter-spacing: 1px;">YOU'VE GOT THIS! KEEP GOING, BEAUTIFUL!</p>
         </div>
     </div>
 
-    <!-- SECTION 2: BODY MEASUREMENTS -->
-    <div class="section">
-        <h2>Body Measurements (Day 1)</h2>
-        <div class="input-group">
-            <label for="weight">Body Weight:</label>
-            <div><input type="number" id="weight" oninput="saveData()"> kg</div>
+    <!-- MAIN INTERACTIVE TRACKERS -->
+    <div class="grid-layout">
+        <!-- Left Column: Workout Schedule -->
+        <div class="section">
+            <div class="section-title">Weekly Workout Schedule</div>
+            <table>
+                <tr><th>Day</th><th>Workout Details</th><th>Duration</th></tr>
+                <tr><td>Mon</td><td>Warm up, Squats, Glute bridge, Wall sit, Jog</td><td>45-60m</td></tr>
+                <tr><td>Tue</td><td>Warm up, Wall push-ups, Shoulder press, Plank</td><td>30-45m</td></tr>
+                <tr><td>Wed</td><td>Brisk walk / Jog, Full-body stretching</td><td>40-50m</td></tr>
+                <tr><td>Thu</td><td>Full Body Circuit (Squats, Push-ups, Mountain climbers)</td><td>40-50m</td></tr>
+                <tr><td>Fri</td><td>Brisk walk / Light jogging</td><td>30-40m</td></tr>
+                <tr><td>Sat</td><td>Badminton / Cycling / 8k-10k steps</td><td>45-60m</td></tr>
+                <tr><td>Sun</td><td>Rest Day & Deep full-body stretching</td><td>10-15m</td></tr>
+            </table>
         </div>
-        <div class="input-group">
-            <label for="waist">Waistline:</label>
-            <div><input type="number" id="waist" oninput="saveData()"> cm</div>
-        </div>
-        <div class="input-group">
-            <label for="hips">Hipline:</label>
-            <div><input type="number" id="hips" oninput="saveData()"> cm</div>
+
+        <!-- Right Column: Meal Planner & Water -->
+        <div class="section">
+            <div class="section-title">Daily Meal Planner</div>
+            <div style="font-size: 0.9rem; margin-bottom: 15px;">
+                <p>🍳 <strong>Breakfast:</strong> 2 eggs + Oats/Wholemeal bread + High protein milk</p>
+                <p>🍓 <strong>Morning Snack:</strong> Yogurt or fresh fruits</p>
+                <p>🍱 <strong>Lunch:</strong> ½ plate rice + Chicken/Fish + Fruits</p>
+                <p>🥛 <strong>Evening Snack:</strong> Protein shake or fruits</p>
+                <p>🥩 <strong>Dinner:</strong> Chicken/Fish + Eggs (if still hungry) + Fruits</p>
+            </div>
+            
+            <div class="section-title" style="border: none; margin-bottom: 5px;">Water Intake (Target 2.5 - 3L)</div>
+            <div class="water-container">
+                <span class="water-glass" onclick="toggleWater(0)">💧</span>
+                <span class="water-glass" onclick="toggleWater(1)">💧</span>
+                <span class="water-glass" onclick="toggleWater(2)">💧</span>
+                <span class="water-glass" onclick="toggleWater(3)">💧</span>
+                <span class="water-glass" onclick="toggleWater(4)">💧</span>
+                <span class="water-glass" onclick="toggleWater(5)">💧</span>
+                <span class="water-glass" onclick="toggleWater(6)">💧</span>
+                <span class="water-glass" onclick="toggleWater(7)">💧</span>
+            </div>
         </div>
     </div>
 
-    <p style="text-align: center; font-size: 0.8rem; color: #aaa; font-style: italic;">
-        "Consistency is more important than perfection."
+    <!-- DAILY CHECKLIST & MEASUREMENTS -->
+    <div class="grid-layout">
+        <!-- Checklist Grid -->
+        <div class="section">
+            <div class="section-title">Daily Habit Checklist</div>
+            <div class="checklist-item"><input type="checkbox" id="c1" onchange="saveData()"><label for="c1">💧 Drink 2.5 - 3L water</label></div>
+            <div class="checklist-item"><input type="checkbox" id="c2" onchange="saveData()"><label for="c2">🥩 Hit protein target (80-100g)</label></div>
+            <div class="checklist-item"><input type="checkbox" id="c3" onchange="saveData()"><label for="c3">🏋️ Completed scheduled workout</label></div>
+            <div class="checklist-item"><input type="checkbox" id="c4" onchange="saveData()"><label for="c4">👟 Achieved 8,000 - 10,000 steps</label></div>
+            <div class="checklist-item"><input type="checkbox" id="c5" onchange="saveData()"><label for="c5">✨ Morning & Night skincare routine</label></div>
+            <div class="checklist-item"><input type="checkbox" id="c6" onchange="saveData()"><label for="c6">💤 Sleep 7.5 - 9 hours</label></div>
+        </div>
+
+        <!-- Body Tracking & Notes -->
+        <div class="section">
+            <div class="section-title">Progress Tracking</div>
+            <div class="input-group"><label>Weight (kg):</label><input type="number" id="w_val" oninput="saveData()"></div>
+            <div class="input-group"><label>Waist (cm):</label><input type="number" id="wa_val" oninput="saveData()"></div>
+            <div class="input-group"><label>Hips (cm):</label><input type="number" id="h_val" oninput="saveData()"></div>
+            
+            <div class="section-title" style="border: none; margin-top: 15px; margin-bottom: 5px;">Daily Notes</div>
+            <textarea id="notes_val" placeholder="Write your reflections or how you feel today..." oninput="saveData()"></textarea>
+        </div>
+    </div>
+
+    <!-- MONTHLY REWARD -->
+    <div class="section" style="background: #f7f9f5; border-color: #e2e8dd; text-align: center;">
+        <div class="section-title" style="color: #a3b18a;">🎁 Month 1 Reward</div>
+        <p style="font-size: 0.9rem; margin: 0;">If you successfully achieve at least <strong>80%</strong> of this plan, reward yourself with something special to stay motivated!</p>
+    </div>
+
+    <p style="text-align: center; font-size: 0.8rem; color: #bcaaa4; font-style: italic; margin-top: 30px;">
+        "Consistency is always more important than perfection."
     </p>
 </div>
 
 <script>
-    // Function to automatically save data to the browser's storage
-    function saveData() {
-        const data = {
-            water: document.getElementById('water').checked,
-            protein: document.getElementById('protein').checked,
-            workout: document.getElementById('workout').checked,
-            steps: document.getElementById('steps').checked,
-            skincare: document.getElementById('skincare').checked,
-            sleep: document.getElementById('sleep').checked,
-            weight: document.getElementById('weight').value,
-            waist: document.getElementById('waist').value,
-            hips: document.getElementById('hips').value
-        };
-        localStorage.setItem('glowupDataEn', JSON.stringify(data));
+    let waterCount = 0;
+
+    function toggleWater(index) {
+        const glasses = document.querySelectorAll('.water-glass');
+        // Simple logic to fill up glasses up to the clicked one
+        if (glasses[index].classList.contains('active') && (index === glasses.length - 1 || !glasses[index + 1].classList.contains('active'))) {
+            waterCount = index;
+        } else {
+            waterCount = index + 1;
+        }
+        updateWaterUI();
+        saveData();
     }
 
-    // Function to reload the saved data when the website opens
+    function updateWaterUI() {
+        const glasses = document.querySelectorAll('.water-glass');
+        glasses.forEach((glass, i) => {
+            if (i < waterCount) glass.classList.add('active');
+            else glass.classList.remove('active');
+        });
+    }
+
+    function saveData() {
+        const checkIds = ['g1','g2','g3','g4','c1','c2','c3','c4','c5','c6'];
+        const data = { water: waterCount };
+        checkIds.forEach(id => data[id] = document.getElementById(id).checked);
+        data.weight = document.getElementById('w_val').value;
+        data.waist = document.getElementById('wa_val').value;
+        data.chips = document.getElementById('h_val').value; // mapping to hips input field
+        data.notes = document.getElementById('notes_val').value;
+        
+        localStorage.setItem('glowUpPlannerPremium', JSON.stringify(data));
+    }
+
     function loadData() {
-        const savedData = localStorage.getItem('glowupDataEn');
-        if (savedData) {
-            const data = JSON.parse(savedData);
-            document.getElementById('water').checked = data.water || false;
-            document.getElementById('protein').checked = data.protein || false;
-            document.getElementById('workout').checked = data.workout || false;
-            document.getElementById('steps').checked = data.steps || false;
-            document.getElementById('skincare').checked = data.skincare || false;
-            document.getElementById('sleep').checked = data.sleep || false;
-            document.getElementById('weight').value = data.weight || '';
-            document.getElementById('waist').value = data.waist || '';
-            document.getElementById('hips').value = data.hips || '';
+        const saved = localStorage.getItem('glowUpPlannerPremium');
+        if (saved) {
+            const data = JSON.parse(saved);
+            waterCount = data.water || 0;
+            updateWaterUI();
+            
+            const checkIds = ['g1','g2','g3','g4','c1','c2','c3','c4','c5','c6'];
+            checkIds.forEach(id => {
+                if (document.getElementById(id)) document.getElementById(id).checked = data[id] || false;
+            });
+            
+            document.getElementById('w_val').value = data.weight || '';
+            document.getElementById('wa_val').value = data.waist || '';
+            document.getElementById('h_val').value = data.chips || '';
+            document.getElementById('notes_val').value = data.notes || '';
         }
     }
 
-    // Execute loadData whenever the web page loads
     window.onload = loadData;
 </script>
 
