@@ -130,9 +130,9 @@
 
     <!-- UPPER BOXES -->
     <div class="grid-layout">
-        <!-- Monthly Focus -->
+        <!-- Monthly Focus (Saved permanently) -->
         <div class="section">
-            <div class="section-title">Target & Focus</div>
+            <div class="section-title">Target & Focus (Monthly)</div>
             <div class="checklist-item"><input type="checkbox" id="g1" onchange="saveData()"><label for="g1">Target weight: 68 kg → 66-67 kg</label></div>
             <div class="checklist-item"><input type="checkbox" id="g2" onchange="saveData()"><label for="g2">Build a consistent workout habit</label></div>
             <div class="checklist-item"><input type="checkbox" id="g3" onchange="saveData()"><label for="g3">Increase physical stamina</label></div>
@@ -174,7 +174,7 @@
                 <p>🥩 <strong>Dinner:</strong> Chicken/Fish + Eggs (if still hungry) + Fruits</p>
             </div>
             
-            <div class="section-title" style="border: none; margin-bottom: 5px;">Water Intake (Target 2.5 - 3L)</div>
+            <div class="section-title" style="border: none; margin-bottom: 5px;">Water Intake (Resets Daily)</div>
             <div class="water-container">
                 <span class="water-glass" onclick="toggleWater(0)">💧</span>
                 <span class="water-glass" onclick="toggleWater(1)">💧</span>
@@ -190,9 +190,9 @@
 
     <!-- DAILY CHECKLIST & MEASUREMENTS -->
     <div class="grid-layout">
-        <!-- Checklist Grid -->
+        <!-- Checklist Grid (Resets Daily) -->
         <div class="section">
-            <div class="section-title">Daily Habit Checklist</div>
+            <div class="section-title">Daily Habit Checklist (Resets Daily)</div>
             <div class="checklist-item"><input type="checkbox" id="c1" onchange="saveData()"><label for="c1">💧 Drink 2.5 - 3L water</label></div>
             <div class="checklist-item"><input type="checkbox" id="c2" onchange="saveData()"><label for="c2">🥩 Hit protein target (80-100g)</label></div>
             <div class="checklist-item"><input type="checkbox" id="c3" onchange="saveData()"><label for="c3">🏋️ Completed scheduled workout</label></div>
@@ -201,7 +201,7 @@
             <div class="checklist-item"><input type="checkbox" id="c6" onchange="saveData()"><label for="c6">💤 Sleep 7.5 - 9 hours</label></div>
         </div>
 
-        <!-- Body Tracking & Notes -->
+        <!-- Body Tracking & Notes (Saved permanently) -->
         <div class="section">
             <div class="section-title">Progress Tracking</div>
             <div class="input-group"><label>Weight (kg):</label><input type="number" id="w_val" oninput="saveData()"></div>
@@ -229,7 +229,6 @@
 
     function toggleWater(index) {
         const glasses = document.querySelectorAll('.water-glass');
-        // Simple logic to fill up glasses up to the clicked one
         if (glasses[index].classList.contains('active') && (index === glasses.length - 1 || !glasses[index + 1].classList.contains('active'))) {
             waterCount = index;
         } else {
@@ -247,13 +246,22 @@
         });
     }
 
+    // Fungsi untuk mendapatkan format tarikh hari ini (YYYY-MM-DD)
+    function getTodayDateString() {
+        const today = new Date();
+        return today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    }
+
     function saveData() {
         const checkIds = ['g1','g2','g3','g4','c1','c2','c3','c4','c5','c6'];
-        const data = { water: waterCount };
+        const data = { 
+            water: waterCount,
+            lastSavedDate: getTodayDateString() // Simpan tarikh hari ini setiap kali data dikemaskini
+        };
         checkIds.forEach(id => data[id] = document.getElementById(id).checked);
         data.weight = document.getElementById('w_val').value;
         data.waist = document.getElementById('wa_val').value;
-        data.chips = document.getElementById('h_val').value; // mapping to hips input field
+        data.chips = document.getElementById('h_val').value;
         data.notes = document.getElementById('notes_val').value;
         
         localStorage.setItem('glowUpPlannerPremium', JSON.stringify(data));
@@ -263,7 +271,21 @@
         const saved = localStorage.getItem('glowUpPlannerPremium');
         if (saved) {
             const data = JSON.parse(saved);
-            waterCount = data.water || 0;
+            const todayDate = getTodayDateString();
+            
+            // LOGIK CHECK AUTO-RESET: Jika hari sudah bertukar, reset checklist harian & air
+            if (data.lastSavedDate && data.lastSavedDate !== todayDate) {
+                waterCount = 0; // Gelas air jadi kosong semula
+                data.c1 = false; // Tanda tick harian hilang
+                data.c2 = false;
+                data.c3 = false;
+                data.c4 = false;
+                data.c5 = false;
+                data.c6 = false;
+            } else {
+                waterCount = data.water || 0;
+            }
+            
             updateWaterUI();
             
             const checkIds = ['g1','g2','g3','g4','c1','c2','c3','c4','c5','c6'];
@@ -275,6 +297,11 @@
             document.getElementById('wa_val').value = data.waist || '';
             document.getElementById('h_val').value = data.chips || '';
             document.getElementById('notes_val').value = data.notes || '';
+            
+            // Jika berlaku auto-reset, simpan keadaan baharu terus
+            if (data.lastSavedDate && data.lastSavedDate !== todayDate) {
+                saveData();
+            }
         }
     }
 
