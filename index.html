@@ -77,6 +77,48 @@
             accent-color: #d4a373;
             cursor: pointer;
         }
+        /* 30-Day Calendar Grid Style */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+        @media (max-width: 480px) {
+            .calendar-grid { grid-template-columns: repeat(5, 1fr); }
+        }
+        .calendar-day {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #e4d5c7;
+            border-radius: 8px;
+            padding: 8px 0;
+            background: #fff;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.2s ease;
+        }
+        .calendar-day span {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #7d6b6a;
+        }
+        .calendar-day input {
+            margin-top: 4px;
+            width: 14px;
+            height: 14px;
+            accent-color: #a3b18a;
+            cursor: pointer;
+        }
+        .calendar-day.completed {
+            background-color: #f4f7f2;
+            border-color: #a3b18a;
+        }
+        .calendar-day.completed span {
+            color: #a3b18a;
+        }
         /* Table Style */
         table {
             width: 100%;
@@ -91,7 +133,6 @@
             vertical-align: top;
         }
         th { color: #b58282; font-weight: 600; }
-        td ul { margin: 0; padding-left: 12px; }
         /* Input & Form Style */
         .input-group {
             display: flex;
@@ -130,6 +171,15 @@
 <div class="container">
     <h1>GLOW UP PLANNER</h1>
     <div class="subtitle">Month 1 • Day 1 - 30</div>
+
+    <div class="section">
+        <div class="section-title">📅 30-Day Progress Journey (Permanent Track)</div>
+        <div style="font-size: 0.88rem; margin-bottom: 10px; color: #7d6b6a;">
+            Tick the box every time you successfully complete a full day of your glow up routine!
+        </div>
+        <div class="calendar-grid" id="calendarGrid">
+            </div>
+    </div>
 
     <div class="grid-layout">
         <div class="section">
@@ -241,94 +291,4 @@
 
     <div class="section" style="background: #f7f9f5; border-color: #e2e8dd; text-align: center;">
         <div class="section-title" style="color: #a3b18a;">🎁 Month 1 Reward</div>
-        <p style="font-size: 0.9rem; margin: 0;">If you successfully achieve at least <strong>80%</strong> of this plan, reward yourself with something special to stay motivated!</p>
-    </div>
-
-    <p style="text-align: center; font-size: 0.8rem; color: #bcaaa4; font-style: italic; margin-top: 30px;">
-        "Consistency is always more important than perfection."
-    </p>
-</div>
-
-<script>
-    let waterCount = 0;
-
-    function toggleWater(index) {
-        const glasses = document.querySelectorAll('.water-glass');
-        if (glasses[index].classList.contains('active') && (index === glasses.length - 1 || !glasses[index + 1].classList.contains('active'))) {
-            waterCount = index;
-        } else {
-            waterCount = index + 1;
-        }
-        updateWaterUI();
-        saveData();
-    }
-
-    function updateWaterUI() {
-        const glasses = document.querySelectorAll('.water-glass');
-        glasses.forEach((glass, i) => {
-            if (i < waterCount) glass.classList.add('active');
-            else glass.classList.remove('active');
-        });
-    }
-
-    function getTodayDateString() {
-        const today = new Date();
-        return today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-    }
-
-    function saveData() {
-        const checkIds = ['g1','g2','g3','g4','c1','c2','c3','c4','c5','c6'];
-        const data = { 
-            water: waterCount,
-            lastSavedDate: getTodayDateString()
-        };
-        checkIds.forEach(id => data[id] = document.getElementById(id).checked);
-        data.weight = document.getElementById('w_val').value;
-        data.waist = document.getElementById('wa_val').value;
-        data.chips = document.getElementById('h_val').value;
-        data.notes = document.getElementById('notes_val').value;
-        
-        localStorage.setItem('glowUpPlannerPremium', JSON.stringify(data));
-    }
-
-    function loadData() {
-        const saved = localStorage.getItem('glowUpPlannerPremium');
-        if (saved) {
-            const data = JSON.parse(saved);
-            const todayDate = getTodayDateString();
-            
-            if (data.lastSavedDate && data.lastSavedDate !== todayDate) {
-                waterCount = 0;
-                data.c1 = false;
-                data.c2 = false;
-                data.c3 = false;
-                data.c4 = false;
-                data.c5 = false;
-                data.c6 = false;
-            } else {
-                waterCount = data.water || 0;
-            }
-            
-            updateWaterUI();
-            
-            const checkIds = ['g1','g2','g3','g4','c1','c2','c3','c4','c5','c6'];
-            checkIds.forEach(id => {
-                if (document.getElementById(id)) document.getElementById(id).checked = data[id] || false;
-            });
-            
-            document.getElementById('w_val').value = data.weight || '';
-            document.getElementById('wa_val').value = data.waist || '';
-            document.getElementById('h_val').value = data.chips || '';
-            document.getElementById('notes_val').value = data.notes || '';
-            
-            if (data.lastSavedDate && data.lastSavedDate !== todayDate) {
-                saveData();
-            }
-        }
-    }
-
-    window.onload = loadData;
-</script>
-
-</body>
-</html>
+        <p style="font-size: 0.9rem; margin: 0;">If you successfully achieve at least <strong>80%</strong> of this plan, reward yourself with something special to stay
