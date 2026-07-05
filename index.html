@@ -272,4 +272,172 @@
 
         <div class="section">
             <div class="section-title">Progress Tracking</div>
-            <div class="input-group"><label>Weight (kg):</label><input type="number
+            <div class="input-group"><label>Weight (kg):</label><input type="number" id="w_val" oninput="saveData()"></div>
+            <div class="input-group"><label>Waist (cm):</label><input type="number" id="wa_val" oninput="saveData()"></div>
+            <div class="input-group"><label>Hips (cm):</label><input type="number" id="h_val" oninput="saveData()"></div>
+            
+            <div class="section-title" style="border: none; margin-top: 15px; margin-bottom: 5px;">Daily Notes</div>
+            <textarea id="notes_val" placeholder="Write your reflections or how you feel today..." oninput="saveData()"></textarea>
+        </div>
+    </div>
+
+    <div class="section" style="background: #f7f9f5; border-color: #e2e8dd; text-align: center;">
+        <div class="section-title" style="color: #a3b18a;">🎁 Month 1 Reward</div>
+        <p style="font-size: 0.9rem; margin: 0;">If you successfully achieve at least <strong>80%</strong> of this plan, reward yourself with something special to stay motivated!</p>
+    </div>
+
+    <p style="text-align: center; font-size: 0.8rem; color: #bcaaa4; font-style: italic; margin-top: 30px;">
+        "Consistency is always more important than perfection."
+    </p>
+</div>
+
+<script>
+    let waterCount = 0;
+    const totalDays = 30;
+
+    // 1. Generate 30 Days Calendar Grid (Nombor sahaja, buang "D")
+    function createCalendar() {
+        const grid = document.getElementById('calendarGrid');
+        if (!grid) return;
+        grid.innerHTML = '';
+        for (let i = 1; i <= totalDays; i++) {
+            const dayBox = document.createElement('div');
+            dayBox.className = 'calendar-day';
+            dayBox.id = `dayBox_${i}`;
+            dayBox.setAttribute('onclick', `toggleCalendarDay(${i}, event)`);
+            
+            // Diubah suai: Tinggal ${i} sahaja tanpa sebarang huruf di depan
+            dayBox.innerHTML = `
+                <span>${i}</span>
+                <input type="checkbox" id="dayCheck_${i}" onchange="saveData()">
+            `;
+            grid.appendChild(dayBox);
+        }
+    }
+
+    function toggleCalendarDay(dayNum, event) {
+        if (event.target.tagName === 'INPUT') {
+            const checkbox = event.target;
+            const box = document.getElementById(`dayBox_${dayNum}`);
+            if (checkbox.checked) box.classList.add('completed');
+            else box.classList.remove('completed');
+            saveData();
+            return;
+        }
+        
+        const checkbox = document.getElementById(`dayCheck_${dayNum}`);
+        const box = document.getElementById(`dayBox_${dayNum}`);
+        checkbox.checked = !checkbox.checked;
+        
+        if (checkbox.checked) box.classList.add('completed');
+        else box.classList.remove('completed');
+        saveData();
+    }
+
+    // 2. Water Functions
+    function toggleWater(index) {
+        const glasses = document.querySelectorAll('.water-glass');
+        if (glasses[index].classList.contains('active') && (index === glasses.length - 1 || !glasses[index + 1].classList.contains('active'))) {
+            waterCount = index;
+        } else {
+            waterCount = index + 1;
+        }
+        updateWaterUI();
+        saveData();
+    }
+
+    function updateWaterUI() {
+        const glasses = document.querySelectorAll('.water-glass');
+        glasses.forEach((glass, i) => {
+            if (i < waterCount) glass.classList.add('active');
+            else glass.classList.remove('active');
+        });
+    }
+
+    function getTodayDateString() {
+        const today = new Date();
+        return today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+    }
+
+    // 3. Save Data
+    function saveData() {
+        const checkIds = ['g1','g2','g3','g4','c1','c2','c3','c4','c5','c6'];
+        const data = { 
+            water: waterCount,
+            lastSavedDate: getTodayDateString(),
+            calendarProgress: {}
+        };
+        
+        checkIds.forEach(id => {
+            const el = document.getElementById(id);
+            if (el) data[id] = el.checked;
+        });
+        
+        for (let i = 1; i <= totalDays; i++) {
+            const chk = document.getElementById(`dayCheck_${i}`);
+            if (chk) data.calendarProgress[`day_${i}`] = chk.checked;
+        }
+
+        data.weight = document.getElementById('w_val').value;
+        data.waist = document.getElementById('wa_val').value;
+        data.chips = document.getElementById('h_val').value;
+        data.notes = document.getElementById('notes_val').value;
+        
+        localStorage.setItem('glowUpPlannerPremium', JSON.stringify(data));
+    }
+
+    // 4. Load Data
+    function loadData() {
+        createCalendar();
+        
+        const saved = localStorage.getItem('glowUpPlannerPremium');
+        if (saved) {
+            const data = JSON.parse(saved);
+            const todayDate = getTodayDateString();
+            
+            if (data.lastSavedDate && data.lastSavedDate !== todayDate) {
+                waterCount = 0;
+                data.c1 = false;
+                data.c2 = false;
+                data.c3 = false;
+                data.c4 = false;
+                data.c5 = false;
+                data.c6 = false;
+            } else {
+                waterCount = data.water || 0;
+            }
+            
+            updateWaterUI();
+            
+            const checkIds = ['g1','g2','g3','g4','c1','c2','c3','c4','c5','c6'];
+            checkIds.forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.checked = data[id] || false;
+            });
+            
+            if (data.calendarProgress) {
+                for (let i = 1; i <= totalDays; i++) {
+                    const isChecked = data.calendarProgress[`day_${i}`] || false;
+                    const chk = document.getElementById(`dayCheck_${i}`);
+                    const box = document.getElementById(`dayBox_${i}`);
+                    if (chk) chk.checked = isChecked;
+                    if (box && isChecked) box.classList.add('completed');
+                }
+            }
+
+            document.getElementById('w_val').value = data.weight || '';
+            document.getElementById('wa_val').value = data.waist || '';
+            document.getElementById('h_val').value = data.chips || '';
+            document.getElementById('notes_val').value = data.notes || '';
+            
+            if (data.lastSavedDate && data.lastSavedDate !== todayDate) {
+                saveData();
+            }
+        }
+    }
+
+    window.onload = loadData;
+</script>
+
+</body>
+</html>
