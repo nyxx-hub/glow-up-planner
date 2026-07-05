@@ -172,7 +172,7 @@
     <h1>GLOW UP PLANNER</h1>
     <div class="subtitle">Month 1 • Day 1 - 30</div>
 
-    <!-- UPPER BOXES (Dua Kolom Rapat Balik) -->
+    <!-- UPPER BOXES -->
     <div class="grid-layout">
         <!-- Left: Monthly Focus -->
         <div class="section">
@@ -183,7 +183,7 @@
             <div class="checklist-item"><input type="checkbox" id="g4" onchange="saveData()"><label for="g4">Drink adequate water daily</label></div>
         </div>
         
-        <!-- Right: 30-Day Progress Journey Calendar (Kini Ganti Reminder!) -->
+        <!-- Right: 30-Day Progress Journey Calendar (Ada jarak "D 1" hingga "D 30") -->
         <div class="section">
             <div class="section-title">📅 30-Day Journey Tracker (Permanent)</div>
             <div class="calendar-grid" id="calendarGrid">
@@ -306,7 +306,7 @@
     let waterCount = 0;
     const totalDays = 30;
 
-    // 1. Generate 30 Days Calendar Grid
+    // 1. Generate 30 Days Calendar Grid with Space (D 1, D 2, etc.)
     function createCalendar() {
         const grid = document.getElementById('calendarGrid');
         if (!grid) return;
@@ -317,8 +317,9 @@
             dayBox.id = `dayBox_${i}`;
             dayBox.setAttribute('onclick', `toggleCalendarDay(${i}, event)`);
             
+            // Ditukar daripada D${i} kepada D ${i} untuk menambah jarak
             dayBox.innerHTML = `
-                <span>D${i}</span>
+                <span>D ${i}</span>
                 <input type="checkbox" id="dayCheck_${i}" onchange="saveData()">
             `;
             grid.appendChild(dayBox);
@@ -326,7 +327,6 @@
     }
 
     function toggleCalendarDay(dayNum, event) {
-        // Prevent double trigger if clicking directly on checkbox
         if (event.target.tagName === 'INPUT') {
             const checkbox = event.target;
             const box = document.getElementById(`dayBox_${dayNum}`);
@@ -384,7 +384,6 @@
             if (el) data[id] = el.checked;
         });
         
-        // Save calendar progress
         for (let i = 1; i <= totalDays; i++) {
             const chk = document.getElementById(`dayCheck_${i}`);
             if (chk) data.calendarProgress[`day_${i}`] = chk.checked;
@@ -400,14 +399,13 @@
 
     // 4. Load Data
     function loadData() {
-        createCalendar(); // Build the boxes first
+        createCalendar();
         
         const saved = localStorage.getItem('glowUpPlannerPremium');
         if (saved) {
             const data = JSON.parse(saved);
             const todayDate = getTodayDateString();
             
-            // Auto-reset check for daily active trackers
             if (data.lastSavedDate && data.lastSavedDate !== todayDate) {
                 waterCount = 0;
                 data.c1 = false;
@@ -422,14 +420,12 @@
             
             updateWaterUI();
             
-            // Load focus & habits
             const checkIds = ['g1','g2','g3','g4','c1','c2','c3','c4','c5','c6'];
             checkIds.forEach(id => {
                 const el = document.getElementById(id);
                 if (el) el.checked = data[id] || false;
             });
             
-            // Load 30 day calendar progress securely
             if (data.calendarProgress) {
                 for (let i = 1; i <= totalDays; i++) {
                     const isChecked = data.calendarProgress[`day_${i}`] || false;
