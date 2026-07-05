@@ -16,7 +16,7 @@
             justify-content: center;
         }
         .container {
-            max-width: 800px;
+            max-width: 850px;
             width: 100%;
             background: #ffffff;
             padding: 30px;
@@ -44,8 +44,12 @@
             grid-template-columns: 1fr 1fr;
             gap: 25px;
         }
+        .full-width {
+            grid-column: 1 / -1;
+        }
         @media (max-width: 768px) {
             .grid-layout { grid-template-columns: 1fr; }
+            .full-width { grid-column: auto; }
         }
         .section {
             background: #fffcf9;
@@ -77,18 +81,21 @@
             accent-color: #d4a373;
             cursor: pointer;
         }
-        /* Table Style */
+        /* New Running & Workout Table Style */
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
+            line-height: 1.4;
         }
         th, td {
-            padding: 10px;
+            padding: 12px 10px;
             text-align: left;
             border-bottom: 1px solid #f4eae1;
+            vertical-align: top;
         }
-        th { color: #b58282; font-weight: 600; }
+        th { color: #b58282; font-weight: 600; background-color: #fff9f3; }
+        td ul { margin: 0; padding-left: 15px; }
         /* Input & Form Style */
         .input-group {
             display: flex;
@@ -128,42 +135,103 @@
     <h1>GLOW UP PLANNER</h1>
     <div class="subtitle">Month 1 • Day 1 - 30</div>
 
-    <!-- UPPER BOXES -->
     <div class="grid-layout">
-        <!-- Monthly Focus (Saved permanently) -->
         <div class="section">
             <div class="section-title">Target & Focus (Monthly)</div>
             <div class="checklist-item"><input type="checkbox" id="g1" onchange="saveData()"><label for="g1">Target weight: 68 kg → 66-67 kg</label></div>
             <div class="checklist-item"><input type="checkbox" id="g2" onchange="saveData()"><label for="g2">Build a consistent workout habit</label></div>
-            <div class="checklist-item"><input type="checkbox" id="g3" onchange="saveData()"><label for="g3">Increase physical stamina</label></div>
+            <div class="checklist-item"><input type="checkbox" id="g3" onchange="saveData()"><label for="g3">Increase running stamina & muscle mass</label></div>
             <div class="checklist-item"><input type="checkbox" id="g4" onchange="saveData()"><label for="g4">Drink adequate water daily</label></div>
         </div>
         
-        <!-- Reminders -->
         <div class="section" style="background: #faf4ee; display: flex; flex-direction: column; justify-content: center; text-align: center;">
-            <p style="font-style: italic; font-size: 1.05rem; color: #b58282; margin: 0 0 10px 0;">"Today's discipline is tomorrow's result."</p>
+            <p style="font-style: italic; font-size: 1.05rem; color: #b58282; margin: 0 0 10px 0;">"Consistency is the key. Enjoy the process, the results will follow!"</p>
             <p style="font-size: 0.85rem; color: #a3b18a; margin: 0; letter-spacing: 1px;">YOU'VE GOT THIS! KEEP GOING, BEAUTIFUL!</p>
         </div>
     </div>
 
-    <!-- MAIN INTERACTIVE TRACKERS -->
-    <div class="grid-layout">
-        <!-- Left Column: Workout Schedule -->
-        <div class="section">
-            <div class="section-title">Weekly Workout Schedule</div>
+    <div class="section">
+        <div class="section-title">🏃‍♂️ Weekly Running & Workout Schedule (Beginner)</div>
+        <div style="overflow-x: auto;">
             <table>
-                <tr><th>Day</th><th>Workout Details</th><th>Duration</th></tr>
-                <tr><td>Mon</td><td>Warm up, Squats, Glute bridge, Wall sit, Jog</td><td>45-60m</td></tr>
-                <tr><td>Tue</td><td>Warm up, Wall push-ups, Shoulder press, Plank</td><td>30-45m</td></tr>
-                <tr><td>Wed</td><td>Brisk walk / Jog, Full-body stretching</td><td>40-50m</td></tr>
-                <tr><td>Thu</td><td>Full Body Circuit (Squats, Push-ups, Mountain climbers)</td><td>40-50m</td></tr>
-                <tr><td>Fri</td><td>Brisk walk / Light jogging</td><td>30-40m</td></tr>
-                <tr><td>Sat</td><td>Badminton / Cycling / 8k-10k steps</td><td>45-60m</td></tr>
-                <tr><td>Sun</td><td>Rest Day & Deep full-body stretching</td><td>10-15m</td></tr>
+                <tr>
+                    <th style="width: 12%;">Day</th>
+                    <th style="width: 44%;">🏃‍♂️ Running Plan</th>
+                    <th style="width: 44%;">🏋️ Workout Plan</th>
+                </tr>
+                <tr>
+                    <td><strong>Mon</strong></td>
+                    <td><strong>Easy Run</strong> (20-30 mins)<br><span style="color:#888; font-size:0.8rem;">Light jogging at a comfortable and relaxed pace.</span></td>
+                    <td>
+                        <ul>
+                            <li>Push-Up — 3 × 10</li>
+                            <li>Squat — 3 × 15</li>
+                            <li>Plank — 3 × 30 secs</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Tue</strong></td>
+                    <td><strong>Rest</strong><br><span style="color:#888; font-size:0.8rem;">Or light walking for 20-30 mins.</span></td>
+                    <td>
+                        <ul>
+                            <li>Dumbbell Row — 3 × 12</li>
+                            <li>Shoulder Press — 3 × 12</li>
+                            <li>Sit-Up — 3 × 15</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Wed</strong></td>
+                    <td><strong>Interval Run</strong> (6 Sets)<br><span style="color:#888; font-size:0.8rem;">1 min fast run + 2 mins slow jog/walk. Repeat 6 times.</span></td>
+                    <td>
+                        <ul>
+                            <li>Lunges — 3 × 12 / leg</li>
+                            <li>Glute Bridge — 3 × 15</li>
+                            <li>Plank — 3 × 30 secs</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Thu</strong></td>
+                    <td><strong>Active Recovery</strong><br><span style="color:#888; font-size:0.8rem;">Light walking or full-body stretching for 20-30 mins.</span></td>
+                    <td>
+                        <ul>
+                            <li>Push-Up — 3 × 10</li>
+                            <li>Chair Dips — 3 × 12</li>
+                            <li>Mountain Climbers — 3 × 20</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Fri</strong></td>
+                    <td><strong>Tempo Run</strong> (20 mins)<br><span style="color:#888; font-size:0.8rem;">Steady medium pace, keeping it well under control.</span></td>
+                    <td>
+                        <ul>
+                            <li>Squat — 3 × 15</li>
+                            <li>Calf Raise — 3 × 20</li>
+                            <li>Russian Twist — 3 × 20</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Sat</strong></td>
+                    <td><strong>Long Run</strong> (40-60 mins)<br><span style="color:#888; font-size:0.8rem;">Relaxed pace, focusing purely on building stamina.</span></td>
+                    <td>Full-body static stretching<br><span style="color:#888; font-size:0.8rem;">Duration: 10-15 mins.</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Sun</strong></td>
+                    <td><strong>Full Rest</strong><br><span style="color:#888; font-size:0.8rem;">Focus on body and mind rejuvenation.</span></td>
+                    <td>Light stretching or relaxing activities<br><span style="color:#888; font-size:0.8rem;">Light walking or gentle yoga.</span></td>
+                </tr>
             </table>
         </div>
+        <p style="font-size: 0.8rem; color: #888; margin-top: 10px; font-style: italic;">
+            💡 Beginner Tips: Warm up for 5-10 mins before running & workout. Cool down and stretch once finished.
+        </p>
+    </div>
 
-        <!-- Right Column: Meal Planner & Water -->
+    <div class="grid-layout">
         <div class="section">
             <div class="section-title">Daily Meal Planner</div>
             <div style="font-size: 0.9rem; margin-bottom: 15px;">
@@ -186,34 +254,32 @@
                 <span class="water-glass" onclick="toggleWater(7)">💧</span>
             </div>
         </div>
-    </div>
 
-    <!-- DAILY CHECKLIST & MEASUREMENTS -->
-    <div class="grid-layout">
-        <!-- Checklist Grid (Resets Daily) -->
         <div class="section">
             <div class="section-title">Daily Habit Checklist (Resets Daily)</div>
             <div class="checklist-item"><input type="checkbox" id="c1" onchange="saveData()"><label for="c1">💧 Drink 2.5 - 3L water</label></div>
             <div class="checklist-item"><input type="checkbox" id="c2" onchange="saveData()"><label for="c2">🥩 Hit protein target (80-100g)</label></div>
-            <div class="checklist-item"><input type="checkbox" id="c3" onchange="saveData()"><label for="c3">🏋️ Completed scheduled workout</label></div>
+            <div class="checklist-item"><input type="checkbox" id="c3" onchange="saveData()"><label for="c3">🏋️ Completed scheduled run/workout</label></div>
             <div class="checklist-item"><input type="checkbox" id="c4" onchange="saveData()"><label for="c4">👟 Achieved 8,000 - 10,000 steps</label></div>
             <div class="checklist-item"><input type="checkbox" id="c5" onchange="saveData()"><label for="c5">✨ Morning & Night skincare routine</label></div>
             <div class="checklist-item"><input type="checkbox" id="c6" onchange="saveData()"><label for="c6">💤 Sleep 7.5 - 9 hours</label></div>
         </div>
+    </div>
 
-        <!-- Body Tracking & Notes (Saved permanently) -->
+    <div class="grid-layout">
         <div class="section">
             <div class="section-title">Progress Tracking</div>
             <div class="input-group"><label>Weight (kg):</label><input type="number" id="w_val" oninput="saveData()"></div>
             <div class="input-group"><label>Waist (cm):</label><input type="number" id="wa_val" oninput="saveData()"></div>
             <div class="input-group"><label>Hips (cm):</label><input type="number" id="h_val" oninput="saveData()"></div>
-            
-            <div class="section-title" style="border: none; margin-top: 15px; margin-bottom: 5px;">Daily Notes</div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Daily Notes</div>
             <textarea id="notes_val" placeholder="Write your reflections or how you feel today..." oninput="saveData()"></textarea>
         </div>
     </div>
 
-    <!-- MONTHLY REWARD -->
     <div class="section" style="background: #f7f9f5; border-color: #e2e8dd; text-align: center;">
         <div class="section-title" style="color: #a3b18a;">🎁 Month 1 Reward</div>
         <p style="font-size: 0.9rem; margin: 0;">If you successfully achieve at least <strong>80%</strong> of this plan, reward yourself with something special to stay motivated!</p>
@@ -246,7 +312,6 @@
         });
     }
 
-    // Fungsi untuk mendapatkan format tarikh hari ini (YYYY-MM-DD)
     function getTodayDateString() {
         const today = new Date();
         return today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
@@ -256,7 +321,7 @@
         const checkIds = ['g1','g2','g3','g4','c1','c2','c3','c4','c5','c6'];
         const data = { 
             water: waterCount,
-            lastSavedDate: getTodayDateString() // Simpan tarikh hari ini setiap kali data dikemaskini
+            lastSavedDate: getTodayDateString()
         };
         checkIds.forEach(id => data[id] = document.getElementById(id).checked);
         data.weight = document.getElementById('w_val').value;
@@ -273,10 +338,9 @@
             const data = JSON.parse(saved);
             const todayDate = getTodayDateString();
             
-            // LOGIK CHECK AUTO-RESET: Jika hari sudah bertukar, reset checklist harian & air
             if (data.lastSavedDate && data.lastSavedDate !== todayDate) {
-                waterCount = 0; // Gelas air jadi kosong semula
-                data.c1 = false; // Tanda tick harian hilang
+                waterCount = 0;
+                data.c1 = false;
                 data.c2 = false;
                 data.c3 = false;
                 data.c4 = false;
@@ -298,7 +362,6 @@
             document.getElementById('h_val').value = data.chips || '';
             document.getElementById('notes_val').value = data.notes || '';
             
-            // Jika berlaku auto-reset, simpan keadaan baharu terus
             if (data.lastSavedDate && data.lastSavedDate !== todayDate) {
                 saveData();
             }
