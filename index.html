@@ -16,7 +16,7 @@
             justify-content: center;
         }
         .container {
-            max-width: 850px;
+            max-width: 800px;
             width: 100%;
             background: #ffffff;
             padding: 30px;
@@ -44,12 +44,8 @@
             grid-template-columns: 1fr 1fr;
             gap: 25px;
         }
-        .full-width {
-            grid-column: 1 / -1;
-        }
         @media (max-width: 768px) {
             .grid-layout { grid-template-columns: 1fr; }
-            .full-width { grid-column: auto; }
         }
         .section {
             background: #fffcf9;
@@ -81,21 +77,21 @@
             accent-color: #d4a373;
             cursor: pointer;
         }
-        /* New Running & Workout Table Style */
+        /* Table Style */
         table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.88rem;
-            line-height: 1.4;
+            font-size: 0.85rem;
+            line-height: 1.3;
         }
         th, td {
-            padding: 12px 10px;
+            padding: 8px 4px;
             text-align: left;
             border-bottom: 1px solid #f4eae1;
             vertical-align: top;
         }
-        th { color: #b58282; font-weight: 600; background-color: #fff9f3; }
-        td ul { margin: 0; padding-left: 15px; }
+        th { color: #b58282; font-weight: 600; }
+        td ul { margin: 0; padding-left: 12px; }
         /* Input & Form Style */
         .input-group {
             display: flex;
@@ -150,88 +146,53 @@
         </div>
     </div>
 
-    <div class="section">
-        <div class="section-title">🏃‍♂️ Weekly Running & Workout Schedule (Beginner)</div>
-        <div style="overflow-x: auto;">
+    <div class="grid-layout">
+        <div class="section">
+            <div class="section-title">Weekly Workout Schedule</div>
             <table>
                 <tr>
-                    <th style="width: 12%;">Day</th>
-                    <th style="width: 44%;">🏃‍♂️ Running Plan</th>
-                    <th style="width: 44%;">🏋️ Workout Plan</th>
+                    <th style="width: 15%;">Day</th>
+                    <th style="width: 45%;">🏃‍♂️ Run</th>
+                    <th style="width: 40%;">🏋️ Workout</th>
                 </tr>
                 <tr>
-                    <td><strong>Mon</strong></td>
-                    <td><strong>Easy Run</strong> (20-30 mins)<br><span style="color:#888; font-size:0.8rem;">Light jogging at a comfortable and relaxed pace.</span></td>
-                    <td>
-                        <ul>
-                            <li>Push-Up — 3 × 10</li>
-                            <li>Squat — 3 × 15</li>
-                            <li>Plank — 3 × 30 secs</li>
-                        </ul>
-                    </td>
+                    <td>Mon</td>
+                    <td><strong>Easy Run</strong> (20-30m)</td>
+                    <td>Push-Up 3×10<br>Squat 3×15<br>Plank 3×30s</td>
                 </tr>
                 <tr>
-                    <td><strong>Tue</strong></td>
-                    <td><strong>Rest</strong><br><span style="color:#888; font-size:0.8rem;">Or light walking for 20-30 mins.</span></td>
-                    <td>
-                        <ul>
-                            <li>Dumbbell Row — 3 × 12</li>
-                            <li>Shoulder Press — 3 × 12</li>
-                            <li>Sit-Up — 3 × 15</li>
-                        </ul>
-                    </td>
+                    <td>Tue</td>
+                    <td><strong>Rest</strong> (or Walk)</td>
+                    <td>DB Row 3×12<br>Press 3×12<br>Sit-Up 3×15</td>
                 </tr>
                 <tr>
-                    <td><strong>Wed</strong></td>
-                    <td><strong>Interval Run</strong> (6 Sets)<br><span style="color:#888; font-size:0.8rem;">1 min fast run + 2 mins slow jog/walk. Repeat 6 times.</span></td>
-                    <td>
-                        <ul>
-                            <li>Lunges — 3 × 12 / leg</li>
-                            <li>Glute Bridge — 3 × 15</li>
-                            <li>Plank — 3 × 30 secs</li>
-                        </ul>
-                    </td>
+                    <td>Wed</td>
+                    <td><strong>Interval Run</strong><br>(1m Fast + 2m Slow) x6</td>
+                    <td>Lunges 3×12<br>Glute Bridge 3×15<br>Plank 3×30s</td>
                 </tr>
                 <tr>
-                    <td><strong>Thu</strong></td>
-                    <td><strong>Active Recovery</strong><br><span style="color:#888; font-size:0.8rem;">Light walking or full-body stretching for 20-30 mins.</span></td>
-                    <td>
-                        <ul>
-                            <li>Push-Up — 3 × 10</li>
-                            <li>Chair Dips — 3 × 12</li>
-                            <li>Mountain Climbers — 3 × 20</li>
-                        </ul>
-                    </td>
+                    <td>Thu</td>
+                    <td><strong>Active Recovery</strong><br>(Stretch/Walk)</td>
+                    <td>Push-Up 3×10<br>Chair Dips 3×12<br>Mnt Climber 3×20</td>
                 </tr>
                 <tr>
-                    <td><strong>Fri</strong></td>
-                    <td><strong>Tempo Run</strong> (20 mins)<br><span style="color:#888; font-size:0.8rem;">Steady medium pace, keeping it well under control.</span></td>
-                    <td>
-                        <ul>
-                            <li>Squat — 3 × 15</li>
-                            <li>Calf Raise — 3 × 20</li>
-                            <li>Russian Twist — 3 × 20</li>
-                        </ul>
-                    </td>
+                    <td>Fri</td>
+                    <td><strong>Tempo Run</strong> (20m)</td>
+                    <td>Squat 3×15<br>Calf Raise 3×20<br>Russian Twist 3×20</td>
                 </tr>
                 <tr>
-                    <td><strong>Sat</strong></td>
-                    <td><strong>Long Run</strong> (40-60 mins)<br><span style="color:#888; font-size:0.8rem;">Relaxed pace, focusing purely on building stamina.</span></td>
-                    <td>Full-body static stretching<br><span style="color:#888; font-size:0.8rem;">Duration: 10-15 mins.</span></td>
+                    <td>Sat</td>
+                    <td><strong>Long Run</strong> (40-60m)</td>
+                    <td>Full-body stretch<br>(10-15 mins)</td>
                 </tr>
                 <tr>
-                    <td><strong>Sun</strong></td>
-                    <td><strong>Full Rest</strong><br><span style="color:#888; font-size:0.8rem;">Focus on body and mind rejuvenation.</span></td>
-                    <td>Light stretching or relaxing activities<br><span style="color:#888; font-size:0.8rem;">Light walking or gentle yoga.</span></td>
+                    <td>Sun</td>
+                    <td><strong>Full Rest</strong></td>
+                    <td>Gentle stretch / Walk / Yoga</td>
                 </tr>
             </table>
         </div>
-        <p style="font-size: 0.8rem; color: #888; margin-top: 10px; font-style: italic;">
-            💡 Beginner Tips: Warm up for 5-10 mins before running & workout. Cool down and stretch once finished.
-        </p>
-    </div>
 
-    <div class="grid-layout">
         <div class="section">
             <div class="section-title">Daily Meal Planner</div>
             <div style="font-size: 0.9rem; margin-bottom: 15px;">
@@ -254,7 +215,9 @@
                 <span class="water-glass" onclick="toggleWater(7)">💧</span>
             </div>
         </div>
+    </div>
 
+    <div class="grid-layout">
         <div class="section">
             <div class="section-title">Daily Habit Checklist (Resets Daily)</div>
             <div class="checklist-item"><input type="checkbox" id="c1" onchange="saveData()"><label for="c1">💧 Drink 2.5 - 3L water</label></div>
@@ -264,18 +227,14 @@
             <div class="checklist-item"><input type="checkbox" id="c5" onchange="saveData()"><label for="c5">✨ Morning & Night skincare routine</label></div>
             <div class="checklist-item"><input type="checkbox" id="c6" onchange="saveData()"><label for="c6">💤 Sleep 7.5 - 9 hours</label></div>
         </div>
-    </div>
 
-    <div class="grid-layout">
         <div class="section">
             <div class="section-title">Progress Tracking</div>
             <div class="input-group"><label>Weight (kg):</label><input type="number" id="w_val" oninput="saveData()"></div>
             <div class="input-group"><label>Waist (cm):</label><input type="number" id="wa_val" oninput="saveData()"></div>
             <div class="input-group"><label>Hips (cm):</label><input type="number" id="h_val" oninput="saveData()"></div>
-        </div>
-
-        <div class="section">
-            <div class="section-title">Daily Notes</div>
+            
+            <div class="section-title" style="border: none; margin-top: 15px; margin-bottom: 5px;">Daily Notes</div>
             <textarea id="notes_val" placeholder="Write your reflections or how you feel today..." oninput="saveData()"></textarea>
         </div>
     </div>
